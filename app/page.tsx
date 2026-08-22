@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   Store,
   PhoneCall,
@@ -58,7 +59,15 @@ export default function HomePage() {
       <header className="header">
         <div className="header-container">
           <div className="logo-container">
-            <div className="logo-badge">CL</div>
+            <div style={{ position: "relative", width: "52px", height: "52px", borderRadius: "12px", overflow: "hidden", border: "2px solid #aed8e0", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
+              <Image
+                src="/logo.webp"
+                alt="شعار كاندي لوكيشن"
+                fill
+                style={{ objectFit: "cover" }}
+                priority
+              />
+            </div>
             <div>
               <div className="brand-title">كاندي لوكيشن | Candy Location</div>
               <div className="brand-subtitle">المركز الرقمي وبوابة التجهيز للتطبيق المستقبلي</div>
@@ -78,6 +87,17 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="hero">
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
+          <div style={{ position: "relative", width: "100px", height: "100px", borderRadius: "24px", overflow: "hidden", border: "3px solid #aed8e0", boxShadow: "0 8px 24px rgba(93, 169, 183, 0.25)" }}>
+            <Image
+              src="/logo.webp"
+              alt="شعار كاندي لوكيشن"
+              fill
+              style={{ objectFit: "cover" }}
+              priority
+            />
+          </div>
+        </div>
         <div className="hero-tag">
           <Sparkles size={16} /> المنظومة الرقمية ومعلومات المشروع الحالية
         </div>

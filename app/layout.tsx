@@ -4,6 +4,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "كاندي لوكيشن | Candy Location - المركز الرقمي وبوابة التجهيز",
   description: "المنصة التفاعلية لتوثيق وتحليل بيانات ومعلومات مشروع موقع وتطبيق Candy Location",
+  icons: {
+    icon: "/logo.webp",
+    apple: "/logo.webp",
+  },
 };
 
 export default function RootLayout({
