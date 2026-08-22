@@ -1,5 +1,5 @@
 ﻿/* ============================================================
-   CANDY LOCATION MOBILE WEB APP — FULLSCREEN CAIRO
+   CANDY LOCATION MOBILE WEB APP — FULLSCREEN CAIRO & SPLASH
    ============================================================ */
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap");
 
@@ -43,6 +43,80 @@ html, body {
   background: var(--bg);
 }
 
+/* Splash Screen (Biteo Animation Style) */
+.splash-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #1b383e 0%, #2f5961 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+}
+
+.splash-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-logo-box {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  border: 3.5px solid #aed8e0;
+  animation: pulseLogo 1.6s infinite ease-in-out;
+  margin-bottom: 24px;
+}
+
+@keyframes pulseLogo {
+  0% { transform: scale(0.92); box-shadow: 0 0 0 0 rgba(174, 216, 224, 0.5); }
+  50% { transform: scale(1.04); box-shadow: 0 0 30px 10px rgba(174, 216, 224, 0.3); }
+  100% { transform: scale(0.92); box-shadow: 0 0 0 0 rgba(174, 216, 224, 0); }
+}
+
+.splash-title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.splash-sub {
+  color: #aed8e0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 28px;
+}
+
+.splash-loader {
+  display: flex;
+  gap: 8px;
+}
+
+.splash-loader span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #aed8e0;
+  animation: bounceDot 1.2s infinite ease-in-out both;
+}
+
+.splash-loader span:nth-child(1) { animation-delay: -0.32s; }
+.splash-loader span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounceDot {
+  0%, 80%, 100% { transform: scale(0.4); opacity: 0.4; }
+  40% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Fullscreen App Container */
 .candy-app-container {
   min-height: 100vh;
   width: 100%;
@@ -53,7 +127,6 @@ html, body {
   direction: rtl;
 }
 
-/* Fullscreen App Frame */
 .app-frame {
   width: 100%;
   max-width: 100%;
@@ -64,7 +137,7 @@ html, body {
   position: relative;
 }
 
-/* Top App Header */
+/* App Header with Logo */
 .app-top-header {
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(14px);
@@ -78,31 +151,21 @@ html, body {
   top: 0;
 }
 
-.header-user-info {
+.header-brand-group {
   display: flex;
   align-items: center;
   gap: 12px;
-  cursor: pointer;
 }
 
-.user-avatar-btn {
+.header-logo-box {
+  position: relative;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--primary);
-  border: 1.5px solid var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  cursor: pointer;
-  box-shadow: var(--shadow-card);
-  transition: all 0.2s ease;
-}
-
-.user-avatar-btn:hover {
-  transform: scale(1.05);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--accent);
+  box-shadow: 0 2px 8px rgba(47, 89, 97, 0.1);
+  flex-shrink: 0;
 }
 
 .header-meta {
@@ -118,8 +181,72 @@ html, body {
 
 .header-name {
   font-size: 0.98rem;
-  font-weight: 800;
+  font-weight: 900;
   color: var(--text);
+}
+
+.user-avatar-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--primary);
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: all 0.2s ease;
+}
+
+.user-avatar-btn:hover {
+  transform: scale(1.06);
+}
+
+/* App Hero Banner with Brand Logo */
+.app-welcome-hero {
+  max-width: 1200px;
+  width: 100%;
+  margin: 12px auto 0;
+  padding: 0 20px;
+}
+
+.welcome-box {
+  background: linear-gradient(135deg, #1b383e 0%, #2f5961 100%);
+  border-radius: 20px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: white;
+  box-shadow: var(--shadow);
+  border: 1.5px solid rgba(174, 216, 224, 0.3);
+}
+
+.welcome-logo-thumb {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid #aed8e0;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-text h2 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.welcome-text p {
+  font-size: 0.8rem;
+  color: #aed8e0;
+  font-weight: 600;
 }
 
 /* Delivery / Pickup Toggle */

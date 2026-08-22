@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import "./app.css";
 import {
@@ -61,6 +61,10 @@ const PRODUCTS: Product[] = [
 ];
 
 export default function CandyMobileApp() {
+  // Splash Screen State
+  const [showSplash, setShowSplash] = useState(true);
+
+  // App States
   const [activeTab, setActiveTab] = useState<"menu" | "deals" | "loyalty" | "orders" | "profile">("menu");
   const [serviceType, setServiceType] = useState<"delivery" | "pickup">("delivery");
   const [activeCat, setActiveCat] = useState("all");
@@ -72,7 +76,7 @@ export default function CandyMobileApp() {
   const [discount, setDiscount] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState<"apple_pay" | "card" | "cash">("apple_pay");
   
-  // Simulated OTP & Phone Auth State
+  // Auth State
   const [user, setUser] = useState<{ name: string; phone: string; points: number; stamps: number } | null>(null);
   const [authStep, setAuthStep] = useState<"phone" | "otp">("phone");
   const [phoneInput, setPhoneInput] = useState("0579772057");
@@ -85,6 +89,14 @@ export default function CandyMobileApp() {
     { sender: "support", text: "أهلاً بك في كاندي لوكيشن 🍬! كيف نقدر نخدمك اليوم بخصوص الطلبات أو الفروع؟" }
   ]);
   const [chatInput, setChatInput] = useState("");
+
+  // Splash Screen Timer
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 1400);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Cart Calculations
   const cartTotal = cart.reduce((sum, item) => sum + item.product.price * item.qty, 0);
@@ -145,7 +157,6 @@ export default function CandyMobileApp() {
     }, 800);
   };
 
-  // Step 1: Send Mock OTP
   const handleRequestOtp = (e: React.FormEvent) => {
     e.preventDefault();
     if (!phoneInput) return;
@@ -153,7 +164,6 @@ export default function CandyMobileApp() {
     setOtpCode(["1", "2", "3", "4"]);
   };
 
-  // Step 2: Verify Mock OTP
   const handleVerifyOtp = (e: React.FormEvent) => {
     e.preventDefault();
     setUser({
@@ -183,12 +193,38 @@ export default function CandyMobileApp() {
 
   return (
     <div className="candy-app-container">
+      {/* 🚀 Splash Screen Overlay */}
+      <div className={`splash-overlay ${!showSplash ? "hidden" : ""}`}>
+        <div className="splash-logo-box">
+          <Image
+            src="/logo.webp"
+            alt="شعار كاندي لوكيشن"
+            fill
+            style={{ objectFit: "cover" }}
+            priority
+          />
+        </div>
+        <div className="splash-title">كاندي لوكيشن | Candy Location</div>
+        <div className="splash-sub">أنسى الدنيا معنا، وتذوق من أجمل أصناف الحلويات ✨</div>
+        <div className="splash-loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
       <div className="app-frame">
-        {/* Top Header */}
+        {/* Top Header with Brand Logo */}
         <header className="app-top-header">
-          <div className="header-user-info" onClick={() => setIsAuthOpen(true)}>
-            <div className="user-avatar-btn">
-              <User size={22} />
+          <div className="header-brand-group" onClick={() => setIsAuthOpen(true)}>
+            <div className="header-logo-box">
+              <Image
+                src="/logo.webp"
+                alt="شعار كاندي لوكيشن"
+                fill
+                style={{ objectFit: "cover" }}
+                priority
+              />
             </div>
             <div className="header-meta">
               <span className="header-greeting">مرحباً بك 👋</span>
@@ -216,6 +252,25 @@ export default function CandyMobileApp() {
             </button>
           </div>
         </header>
+
+        {/* 🌟 Welcome Brand Banner with Logo */}
+        <div className="app-welcome-hero">
+          <div className="welcome-box">
+            <div className="welcome-logo-thumb">
+              <Image
+                src="/logo.webp"
+                alt="شعار كاندي لوكيشن"
+                fill
+                style={{ objectFit: "cover" }}
+                priority
+              />
+            </div>
+            <div className="welcome-text">
+              <h2>موقع الحلا (Candy Location)</h2>
+              <p>صُنعت بحب من أنامل سعودية وبأعلى جودة 🍬✨</p>
+            </div>
+          </div>
+        </div>
 
         {/* Service Type Toggle (Delivery / Pickup) */}
         <div className="service-toggle-wrapper">
