@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -67,6 +67,8 @@ export default function CandyMobileApp() {
   // App States
   const [activeTab, setActiveTab] = useState<"menu" | "deals" | "loyalty" | "orders" | "profile">("menu");
   const [serviceType, setServiceType] = useState<"delivery" | "pickup">("delivery");
+  const [selectedBranch, setSelectedBranch] = useState("الفرع الأول (الرئيسي - حي المروج)");
+  const [isBranchModalOpen, setIsBranchModalOpen] = useState(false);
   const [activeCat, setActiveCat] = useState("all");
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -228,8 +230,30 @@ export default function CandyMobileApp() {
             </div>
             <div className="header-meta">
               <span className="header-greeting">مرحباً بك 👋</span>
-              <span className="header-name">{user ? user.name : "تسجيل الدخول (برقم الجوال)"}</span>
+              <span className="header-name">{user ? user.name : "تسجيل الدخول"}</span>
             </div>
+          </div>
+
+          <div
+            onClick={() => setIsBranchModalOpen(true)}
+            style={{
+              background: "#def1f4",
+              border: "1.5px solid #aed8e0",
+              borderRadius: "999px",
+              padding: "6px 14px",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              cursor: "pointer",
+              fontSize: "0.82rem",
+              fontWeight: "800",
+              color: "#1b383e",
+              boxShadow: "0 2px 6px rgba(47, 89, 97, 0.08)"
+            }}
+          >
+            <MapPin size={15} color="#2f5961" />
+            <span>{selectedBranch.split(" - ")[0]}</span>
+            <span style={{ fontSize: "0.7rem", color: "#587980" }}>▾</span>
           </div>
 
           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
@@ -690,6 +714,70 @@ export default function CandyMobileApp() {
                   <Send size={18} />
                 </button>
               </form>
+            </div>
+          </div>
+        )}
+
+        {/* 📍 Branch Selection Modal */}
+        {isBranchModalOpen && (
+          <div className="modal-overlay" onClick={() => setIsBranchModalOpen(false)}>
+            <div className="modal-sheet" onClick={(e) => e.stopPropagation()}>
+              <div className="sheet-header">
+                <div className="sheet-title">اختر الفرع الأقرب إليك 📍</div>
+                <button className="sheet-close" onClick={() => setIsBranchModalOpen(false)}><X size={20} /></button>
+              </div>
+
+              <p style={{ fontSize: "0.82rem", color: "var(--text-muted)", marginBottom: "14px" }}>
+                اختر الفرع لتجهيز واستلام طلبك، أو التوصيل السريع من المستودع المركزي:
+              </p>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {[
+                  { name: "الفرع الأول (الرئيسي - حي المروج)", address: "طريق الملك عبدالعزيز", status: "مفتوح حتى 12:00 ص 🟢", phone: "0579772057" },
+                  { name: "الفرع الثاني (حي الياسمين)", address: "شارع أنس بن مالك", status: "مفتوح حتى 12:30 ص 🟢", phone: "0579772057" },
+                  { name: "الفرع الثالث (حي الروضة)", address: "شارع حفصة بنت عمر", status: "مفتوح حتى 1:00 ص 🟢", phone: "0579772057" },
+                  { name: "خدمة التوصيل السريع (المستودع المركزي)", address: "تغطية فورية لجميع الأحياء", status: "توصيل فوري بالمناديب 🛵", phone: "0579772057" }
+                ].map((b, idx) => {
+                  const isSelected = selectedBranch.startsWith(b.name.split(" - ")[0]);
+                  return (
+                    <div
+                      key={idx}
+                      onClick={() => {
+                        setSelectedBranch(b.name);
+                        setIsBranchModalOpen(false);
+                      }}
+                      style={{
+                        background: isSelected ? "#def1f4" : "var(--bg-card)",
+                        border: `2px solid ${isSelected ? "var(--primary)" : "var(--border)"}`,
+                        borderRadius: "16px",
+                        padding: "12px 14px",
+                        cursor: "pointer",
+                        transition: "all 0.2s ease"
+                      }}
+                    >
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <strong style={{ fontSize: "0.95rem", color: "var(--text)" }}>{b.name}</strong>
+                        {isSelected && <CheckCircle size={18} color="var(--primary)" />}
+                      </div>
+                      <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", marginTop: "4px" }}>
+                        📍 {b.address}
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "6px", fontSize: "0.74rem" }}>
+                        <span style={{ color: "#059669", fontWeight: "800" }}>{b.status}</span>
+                        <span style={{ color: "var(--text-muted)", direction: "ltr" }}>📞 {b.phone}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <button
+                className="btn-primary"
+                style={{ width: "100%", marginTop: "16px" }}
+                onClick={() => setIsBranchModalOpen(false)}
+              >
+                تأكيد الفرع المختار
+              </button>
             </div>
           </div>
         )}
