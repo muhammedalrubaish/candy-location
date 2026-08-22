@@ -1,7 +1,7 @@
 ﻿/* ============================================================
-   CANDY LOCATION RESTAURANT & SWEETS APP — STYLES
-   Arabic RTL, Mobile-First PWA (Inspired by Biteo App Engine)
+   CANDY LOCATION MOBILE WEB APP — FULLSCREEN CAIRO
    ============================================================ */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap");
 
 :root {
   --primary:        #2f5961;
@@ -10,10 +10,10 @@
   --accent:         #aed8e0;
   --accent-soft:    #def1f4;
   --accent-gold:    #f59e0b;
-  --bg:             #f2f8fa;
+  --bg:             #f5fbfc;
   --bg-card:        #ffffff;
-  --bg-card2:       #e8f4f7;
-  --bg-input:       #edf6f8;
+  --bg-card2:       #eaf4f6;
+  --bg-input:       #eef6f8;
   --border:         #d2eaee;
   --border-focus:   #2f5961;
   --text:           #1b383e;
@@ -21,58 +21,54 @@
   --text-muted:     #8ca8af;
   --success:        #10b981;
   --danger:         #ef4444;
-  --radius:         18px;
+  --radius:         16px;
   --radius-sm:      12px;
   --radius-xs:      8px;
-  --nav-h:          76px;
-  --shadow:         0 8px 24px rgba(47, 89, 97, 0.12);
-  --shadow-card:    0 2px 12px rgba(47, 89, 97, 0.06);
+  --nav-h:          72px;
+  --shadow:         0 4px 20px rgba(47, 89, 97, 0.08);
+  --shadow-card:    0 2px 10px rgba(47, 89, 97, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Cairo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  background: var(--bg);
 }
 
 .candy-app-container {
   min-height: 100vh;
-  background: #172a2e;
+  width: 100%;
+  background: var(--bg);
   display: flex;
   justify-content: center;
-  align-items: center;
-  font-family: "Alexandria", "Cairo", sans-serif;
+  align-items: stretch;
   direction: rtl;
-  padding: 0;
 }
 
-@media (min-width: 500px) {
-  .candy-app-container {
-    padding: 24px 0;
-  }
-}
-
-/* Mobile Frame */
+/* Fullscreen App Frame */
 .app-frame {
   width: 100%;
-  max-width: 430px;
-  height: 100vh;
-  max-height: 920px;
+  max-width: 100%;
+  min-height: 100vh;
   background: var(--bg);
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-  border-radius: 0;
 }
 
-@media (min-width: 500px) {
-  .app-frame {
-    border-radius: 40px;
-    border: 8px solid #233e44;
-  }
-}
-
-/* App Header */
+/* Top App Header */
 .app-top-header {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(14px);
-  padding: 14px 18px;
+  padding: 12px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,12 +81,13 @@
 .header-user-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  cursor: pointer;
 }
 
 .user-avatar-btn {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--accent-soft);
   color: var(--primary);
@@ -98,9 +95,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   box-shadow: var(--shadow-card);
+  transition: all 0.2s ease;
+}
+
+.user-avatar-btn:hover {
+  transform: scale(1.05);
 }
 
 .header-meta {
@@ -115,14 +117,17 @@
 }
 
 .header-name {
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   font-weight: 800;
   color: var(--text);
 }
 
-/* Delivery / Pickup Toggle (Biteo Style) */
+/* Delivery / Pickup Toggle */
 .service-toggle-wrapper {
-  padding: 12px 18px 4px;
+  padding: 14px 20px 6px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .service-toggle {
@@ -130,21 +135,21 @@
   padding: 4px;
   border-radius: var(--radius);
   display: flex;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
 }
 
 .toggle-btn {
   flex: 1;
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: var(--radius-sm);
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: 0.92rem;
+  font-weight: 800;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   color: var(--text-secondary);
   background: transparent;
   transition: all 0.25s ease;
@@ -153,22 +158,24 @@
 .toggle-btn.active {
   background: var(--primary);
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(47, 89, 97, 0.25);
+  box-shadow: 0 4px 14px rgba(47, 89, 97, 0.2);
 }
 
-/* App Scrollable Body */
+/* App Content Area */
 .app-content {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 90px;
-  -webkit-overflow-scrolling: touch;
+  padding: 0 0 100px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-/* Stories / Promo Carousel */
+/* Promo Slider */
 .promo-slider {
-  padding: 14px 18px;
+  padding: 14px 20px;
   display: flex;
-  gap: 12px;
+  gap: 14px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -178,51 +185,57 @@
 }
 
 .promo-banner {
-  min-width: 290px;
-  height: 130px;
+  min-width: 320px;
+  height: 140px;
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 18px;
   color: white;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 6px 18px rgba(47, 89, 97, 0.2);
+  box-shadow: var(--shadow);
   cursor: pointer;
   flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.promo-banner:hover {
+  transform: translateY(-2px);
 }
 
 .promo-badge {
   align-self: flex-start;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(8px);
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 800;
 }
 
 .promo-title {
-  font-size: 1.1rem;
-  font-weight: 800;
-  line-height: 1.3;
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1.35;
 }
 
 .promo-sub {
-  font-size: 0.78rem;
-  opacity: 0.9;
+  font-size: 0.82rem;
+  opacity: 0.92;
+  font-weight: 600;
 }
 
-/* Loyalty Card (Biteo Stamp Card) */
+/* Loyalty Card */
 .loyalty-card {
-  margin: 4px 18px 14px;
+  margin: 6px 20px 16px;
   background: linear-gradient(135deg, #1e3c42 0%, #2f5961 100%);
   color: white;
   border-radius: var(--radius);
-  padding: 16px 18px;
+  padding: 18px 20px;
   box-shadow: var(--shadow);
-  border: 1px solid rgba(174, 216, 224, 0.3);
+  border: 1px solid rgba(174, 216, 224, 0.35);
 }
 
 .loyalty-top {
@@ -233,40 +246,40 @@
 }
 
 .loyalty-title {
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   color: var(--accent);
 }
 
 .loyalty-points {
-  font-size: 0.82rem;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 4px 10px;
+  font-size: 0.88rem;
+  background: rgba(255, 255, 255, 0.18);
+  padding: 4px 12px;
   border-radius: 999px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .loyalty-stamps {
   display: flex;
   justify-content: space-between;
-  gap: 6px;
-  margin-top: 8px;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .stamp-slot {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  flex: 1;
+  height: 48px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.1);
   border: 1.5px dashed rgba(174, 216, 224, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  transition: all 0.2s ease;
+  font-size: 1.3rem;
+  font-weight: 800;
 }
 
 .stamp-slot.stamped {
@@ -274,7 +287,7 @@
   border-style: solid;
   border-color: #ffffff;
   color: #1b383e;
-  box-shadow: 0 2px 8px rgba(174, 216, 224, 0.4);
+  box-shadow: 0 2px 10px rgba(174, 216, 224, 0.4);
 }
 
 .stamp-slot.free-reward {
@@ -286,9 +299,9 @@
 
 /* Category Filter Pills */
 .categories-bar {
-  padding: 8px 18px;
+  padding: 10px 20px;
   display: flex;
-  gap: 8px;
+  gap: 10px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -298,16 +311,16 @@
 }
 
 .cat-pill {
-  padding: 8px 16px;
+  padding: 9px 18px;
   border-radius: 999px;
   background: var(--bg-card);
   border: 1.5px solid var(--border);
   color: var(--text-secondary);
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
@@ -321,19 +334,19 @@
   box-shadow: var(--shadow-card);
 }
 
-/* Products Grid */
+/* Responsive Products Grid */
 .products-feed {
-  padding: 12px 18px;
+  padding: 14px 20px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
 }
 
 .food-card {
   background: var(--bg-card);
   border-radius: var(--radius);
   border: 1.5px solid var(--border);
-  padding: 12px;
+  padding: 14px;
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
@@ -343,23 +356,23 @@
 }
 
 .food-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   border-color: var(--primary-light);
   box-shadow: var(--shadow);
 }
 
 .food-img-wrapper {
   width: 100%;
-  height: 110px;
+  height: 120px;
   border-radius: var(--radius-sm);
   background: var(--bg-card2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.8rem;
+  font-size: 3rem;
   position: relative;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .food-badge {
@@ -368,31 +381,30 @@
   right: 8px;
   background: var(--primary);
   color: white;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 999px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .food-name {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 800;
   color: var(--text);
   margin-bottom: 4px;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .food-desc {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
-  line-height: 1.4;
-  height: 32px;
+  line-height: 1.5;
+  height: 38px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .food-bottom {
@@ -403,20 +415,20 @@
 }
 
 .food-price {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 900;
   color: var(--primary);
 }
 
 .food-price span {
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 700;
   color: var(--text-secondary);
 }
 
 .add-food-btn {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: var(--accent-soft);
   color: var(--primary);
@@ -432,24 +444,33 @@
 .add-food-btn:hover {
   background: var(--primary);
   color: white;
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
-/* Bottom Navigation Bar (Biteo 5-Tab Bar) */
+/* Bottom Navigation Bar */
 .app-bottom-nav {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: var(--nav-h);
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(16px);
   border-top: 1.5px solid var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.nav-inner-wrapper {
+  max-width: 600px;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 0 10px;
-  z-index: 50;
 }
 
 .nav-tab-item {
@@ -458,13 +479,13 @@
   align-items: center;
   gap: 4px;
   color: var(--text-muted);
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.78rem;
+  font-weight: 800;
   cursor: pointer;
   background: none;
   border: none;
   position: relative;
-  padding: 8px 12px;
+  padding: 8px 16px;
   transition: all 0.2s ease;
 }
 
@@ -476,8 +497,8 @@
   content: "";
   position: absolute;
   top: 0;
-  width: 24px;
-  height: 3px;
+  width: 28px;
+  height: 3.5px;
   background: var(--primary);
   border-radius: 999px;
 }
@@ -485,58 +506,72 @@
 .cart-count-badge {
   position: absolute;
   top: 2px;
-  right: 12px;
+  right: 14px;
   background: var(--danger);
   color: white;
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
 }
 
-/* Modals & Overlays */
+/* Modals */
 .modal-overlay {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
   z-index: 100;
   display: flex;
+  justify-content: center;
   align-items: flex-end;
+}
+
+@media (min-width: 600px) {
+  .modal-overlay {
+    align-items: center;
+  }
 }
 
 .modal-sheet {
   width: 100%;
-  max-height: 88%;
+  max-width: 520px;
+  max-height: 90vh;
   background: #ffffff;
   border-radius: 28px 28px 0 0;
-  padding: 20px 20px 28px;
+  padding: 24px;
   overflow-y: auto;
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
-  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideUp 0.3s ease;
+}
+
+@media (min-width: 600px) {
+  .modal-sheet {
+    border-radius: 28px;
+    margin: 20px;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .sheet-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
   border-bottom: 1.5px solid var(--border);
 }
 
 .sheet-title {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 800;
   color: var(--text);
 }
@@ -544,8 +579,8 @@
 .sheet-close {
   background: var(--bg-card2);
   border: none;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -554,39 +589,67 @@
   color: var(--text-secondary);
 }
 
-/* Coupon Box */
+/* OTP & Phone Inputs */
+.input-field {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1.5px solid var(--border);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 700;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-field:focus {
+  border-color: var(--border-focus);
+  background: #ffffff;
+}
+
+.otp-box-grid {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 16px 0;
+  direction: ltr;
+}
+
+.otp-digit {
+  width: 52px;
+  height: 56px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--bg-input);
+  font-size: 1.4rem;
+  font-weight: 900;
+  text-align: center;
+  outline: none;
+  color: var(--primary);
+}
+
+.otp-digit:focus {
+  border-color: var(--primary);
+  background: #ffffff;
+}
+
+/* Coupons & Payment */
 .coupon-row {
   display: flex;
   gap: 8px;
   margin: 14px 0;
 }
 
-.coupon-input {
-  flex: 1;
-  background: var(--bg-input);
-  border: 1.5px solid var(--border);
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  font-weight: 700;
-  outline: none;
-}
-
-.coupon-input:focus {
-  border-color: var(--border-focus);
-}
-
 .apply-coupon-btn {
   background: var(--primary);
   color: white;
-  padding: 0 16px;
+  padding: 0 20px;
   border-radius: var(--radius-sm);
   font-weight: 800;
   border: none;
   cursor: pointer;
 }
 
-/* Payment Methods (Biteo Style) */
 .payment-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -597,7 +660,7 @@
 .payment-option {
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 12px 6px;
+  padding: 12px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -605,8 +668,8 @@
   cursor: pointer;
   background: var(--bg-card);
   transition: all 0.2s ease;
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: 0.82rem;
+  font-weight: 800;
   color: var(--text-secondary);
 }
 
@@ -616,15 +679,14 @@
   color: var(--primary);
 }
 
-/* Checkout Button */
 .checkout-btn {
   width: 100%;
-  padding: 14px;
+  padding: 14px 20px;
   border-radius: var(--radius);
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
-  font-size: 1rem;
-  font-weight: 800;
+  font-size: 1.05rem;
+  font-weight: 900;
   border: none;
   cursor: pointer;
   display: flex;
